@@ -1,0 +1,88 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio en Vivo | 6° Foro de Administración</title>
+    <style>
+        body { font-family: system-ui, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .card { background: white; color: #1e293b; max-width: 480px; width: 100%; border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .badge { background: #fff7ed; color: #ea580c; font-weight: 800; font-size: 0.8rem; padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 8px; border: 1px solid #fdba74; }
+        h2 { margin: 0 0 6px 0; color: #0f172a; font-size: 1.4rem; }
+        p.sub { margin: 0 0 20px 0; color: #64748b; font-size: 0.9rem; }
+        label.q-title { display: block; font-weight: 700; margin: 18px 0 8px 0; color: #0f172a; font-size: 0.95rem; }
+        select, textarea { width: 100%; padding: 12px; border: 2px solid #cbd5e1; border-radius: 10px; font-size: 0.95rem; box-sizing: border-box; font-family: inherit; }
+        select:focus, textarea:focus { border-color: #ea580c; outline: none; }
+        button { width: 100%; background: #ea580c; color: white; border: none; padding: 15px; border-radius: 10px; font-size: 1.05rem; font-weight: 800; margin-top: 22px; cursor: pointer; }
+        button:disabled { background: #94a3b8; }
+        #exito { display: none; text-align: center; padding: 30px 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <span class="badge">6° FORO DE ADMINISTRACIÓN CESBA</span>
+        <h2>Pulso Ejecutivo en Vivo</h2>
+        <p class="sub">Tus respuestas aparecerán en tiempo real en la pantalla principal.</p>
+
+        <form id="formForo">
+            <label class="q-title">1. ¿Qué cuello de botella te quita más tiempo hoy?</label>
+            <select id="p1" required>
+                <option value="">Selecciona una opción...</option>
+                <option value="A) Mala comunicación / Pasillo">A) Mala comunicación (pasillo o WhatsApp)</option>
+                <option value="B) Trabajo manual / Excel">B) Trabajo manual repetitivo (papel o Excel)</option>
+                <option value="C) Delegación confusa">C) Falta de claridad al repartir tareas</option>
+            </select>
+
+            <label class="q-title">2. ¿En qué área empresarial urge más meter IA hoy?</label>
+            <select id="p2" required>
+                <option value="">Selecciona una opción...</option>
+                <option value="A) Atención al cliente y ventas">A) Atención al cliente y ventas</option>
+                <option value="B) Finanzas, compras e inventarios">B) Finanzas, compras e inventarios</option>
+                <option value="C) Recursos Humanos y desempeño">C) Recursos Humanos y desempeño</option>
+            </select>
+
+            <label class="q-title">3. En una frase: ¿Qué tarea aburrida automatizarías mañana o cuál es tu mayor reto al egresar?</label>
+            <textarea id="p3" rows="3" placeholder="Ej. Automatizar las cotizaciones en mi trabajo..." required maxlength="180"></textarea>
+
+            <button type="submit" id="btnEnviar">Enviar a la Pantalla Principal 🚀</button>
+        </form>
+
+        <div id="exito">
+            <div style="font-size: 3rem;">✅</div>
+            <h3>¡Respuesta registrada en vivo!</h3>
+            <p style="color: #64748b;">Mira la pantalla del escenario para ver cómo la IA analiza los datos de toda la cancha.</p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbyJocZDbe_IT5T4CJxV1MofPjvV3T5Przmbiu1-_xVmVMQr1fq43AFJoTxwiNy7xQPd/exec";
+
+        document.getElementById('formForo').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnEnviar');
+            btn.disabled = true;
+            btn.innerText = "Enviando...";
+
+            const payload = {
+                p1: document.getElementById('p1').value,
+                p2: document.getElementById('p2').value,
+                p3: document.getElementById('p3').value
+            };
+
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {}
+
+            document.getElementById('formForo').style.display = 'none';
+            document.getElementById('exito').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
