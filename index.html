@@ -775,7 +775,7 @@
             actualizarTablaYContador();
         }
 
-        function copiarPromptYAbrirGemini() {
+       function copiarPromptYAbrirGemini() {
             const total = respuestasEnVivo.length;
             let bloqueDatos = "";
 
@@ -786,20 +786,32 @@
                 bloqueDatos = "\n\n(Nota: Analiza la hoja de cálculo ForoAdmin vinculada de Google Drive del 6° Foro de Administración CESBA).";
             }
 
-            const megaPrompt = `[ROL] Actúa como un Consultor Senior en Inteligencia de Negocios (Business Intelligence) y Estrategia Corporativa.
+            const megaPrompt = `[ROL] Actúa como un Consultor Senior en Inteligencia de Negocios (Business Intelligence) y Estrategia Corporativa, y como un Desarrollador Web experto.
 
 [CONTEXTO] Estoy cerrando mi conferencia en vivo en el 6° Foro de Administración de CESBA Querétaro ante estudiantes de la Licenciatura en Administración. Acaban de responder una encuesta en tiempo real desde sus celulares sobre sus cuellos de botella operativos y sus inquietudes tecnológicas.
 
 [INSTRUCCIÓN] Analiza los datos recolectados y genera un diagnóstico ejecutivo inmediato:
 1. Calcula los KPIs porcentuales exactos de la Pregunta 1 (Dolor Operativo) y la Pregunta 2 (Área prioritaria para IA).
 2. Aplica Procesamiento de Lenguaje Natural (NLP) a los comentarios abiertos de la Pregunta 3: identifica el sentimiento dominante y agrupa las inquietudes en los 3 patrones más repetidos.
-3. Propón 3 acciones gerenciales concretas basadas en estos hallazgos.
+3. Propón 1 acción gerencial clave (Insight Gerencial) basada en la correlación de estos hallazgos.
 
-[FORMATO] Entrégalo con estructura ejecutiva de alto impacto, incluyendo una tabla resumen de KPIs y viñetas estratégicas listas para proyectar en el auditorio.${bloqueDatos}`;
+[FORMATO] ESTRICTO: NO generes texto plano ni Markdown. Genera ÚNICAMENTE UN ARCHIVO HTML COMPLETO (Single-File) que funcione como un "Dashboard Ejecutivo Interactivo".
+Debes cumplir con estas especificaciones técnicas y de diseño:
+- Usa HTML5 válido.
+- Usa Tailwind CSS (vía CDN) para un diseño elegante, ejecutivo y moderno.
+- Aplica un Tema Oscuro (Dark Mode) con fondo \`bg-slate-900\`, usando paneles translúcidos ("glassmorphism") y bordes sutiles.
+- Usa fuentes de Google Fonts (ej. 'Inter').
+- Usa Chart.js (vía CDN) para crear 3 gráficas animadas:
+  a) Una gráfica de Dona (Doughnut) para el Dolor Operativo.
+  b) Una gráfica de Barras (Bar) para el Foco Tecnológico (IA).
+  c) Una gráfica de Pastel (Pie) para el análisis NLP de comportamiento.
+- Incluye un Header con el título "Diagnóstico en Tiempo Real - 6° Foro CESBA" y un indicador visual de "LIVE DATA" parpadeante.
+- Incluye una sección en la parte inferior destacada visualmente con el "Insight Gerencial Clave" redactado en un párrafo de alto impacto.
+- Todo el CSS, JS y HTML debe estar contenido en ese único archivo.${bloqueDatos}`;
 
             navigator.clipboard.writeText(megaPrompt).then(() => {
                 const btn = document.getElementById('btn-magic-gemini');
-                btn.innerHTML = "✅ ¡Prompt + Datos Copiados! Abriendo Gemini...";
+                btn.innerHTML = "✅ ¡Prompt Copiado! Abriendo Gemini...";
                 btn.style.background = "#16a34a";
                 
                 setTimeout(() => {
